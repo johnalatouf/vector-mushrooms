@@ -39,16 +39,12 @@ export class BackgroundImageComponent implements AfterViewInit {
       this.context.canvas.height = windowInnerHeight;
       this.context.fillStyle = "#a3ffe2";
       this.context.fillRect(0, 0, windowInnerWidth, windowInnerHeight);
-      // const heightRange = [100, 220];
-      // const curveRange = [-75, 75];
-      // const mushrooms:Mushroom[] = [];
 
       const bigMushroomPath = this.mushroomPath([0,windowInnerHeight*0.6], [windowInnerWidth*0.3, windowInnerHeight*0.4], [windowInnerWidth*0.65, windowInnerHeight*0.65], [windowInnerWidth - 100, windowInnerHeight*0.95], 10)
       this.drawMushroomsOnPath(bigMushroomPath, [100, 220], [-75, 75], [15, 30], [70, 150], 20, 0.5, 10);
 
       const smallMushroomPath = this.mushroomPath([0, windowInnerHeight*0.9], [windowInnerWidth*0.15, windowInnerHeight*0.4], [windowInnerWidth*0.65, windowInnerHeight*0.8], [windowInnerWidth - 100, windowInnerHeight*0.95], 12)
       this.drawMushroomsOnPath(smallMushroomPath, [80, 180], [-35, 35], [10, 15], [30, 100], 10, 0.25, 4);
-      // this.drawMushroomsOnPath(smallMushroomPath, [80, 180], [-35, 35], [5, 10], [40, 100], 20, 0.5, 4);
     }
   }
 
@@ -71,16 +67,13 @@ export class BackgroundImageComponent implements AfterViewInit {
         this.generateMushroom(
           [rx, ry], 
           [heightRange[0] - shrinkChange, heightRange[1] - shrinkChange], 
-          curveRange, 
-          // [curveRange[0] - shrinkChange, curveRange[1] - shrinkChange], 
+          curveRange,  
           capRadius, 
           capCircleRadius > capRadius ? capCircleRadius : capRadius
         )
       );
     }
     mushrooms.forEach((m, i) => {
-      // TODO: comment for line drawing
-      // this.drawMushroom(m);
       this.drawFilledMushroom(m);
     })
   }
@@ -93,7 +86,6 @@ export class BackgroundImageComponent implements AfterViewInit {
 
     const stalkRandom = this.randomIntFromInterval(-10, 10);
 
-    // TODO: randomize x
     const endpoint = [start[0] + stalkRandom, start[1] - height];
 
     const capBase = {
@@ -111,7 +103,6 @@ export class BackgroundImageComponent implements AfterViewInit {
     const mushroom: Mushroom = {
       root: start,
       stalkEnd: endpoint,
-      // height: height,
       capBase: capBase,
       capCircle: capCircle,
       stalkCurvePoint: [curveX, curveY],
@@ -130,9 +121,6 @@ export class BackgroundImageComponent implements AfterViewInit {
   const curve = mushroom.stalkCurvePoint;
   const end = mushroom.stalkEnd;
     if (this.context) {
-      // stalk center
-      // this.drawCurvedLine(this.context, start, end, curve);
-
       // stalk left
       this.drawCurvedLine(
         this.context, 
@@ -163,14 +151,6 @@ export class BackgroundImageComponent implements AfterViewInit {
         ry: 5,
       }
 
-      // cap base
-      // this.ellipse(this.context, 
-      //   capBase.cx,
-      //   capBase.cy,
-      //   capBase.rx,
-      //   capBase.ry // TODO: calculate this
-      // )
-
       // cap circle
       this.ellipse(this.context, 
         capCircle.cx,
@@ -178,9 +158,6 @@ export class BackgroundImageComponent implements AfterViewInit {
         capCircle.rx,
         capCircle.ry
       )
-
-      // this.context.fill();
-      // this.context.fillStyle = "blue";
 
       // TEST A GILL
       this.drawGill(
@@ -232,7 +209,6 @@ export class BackgroundImageComponent implements AfterViewInit {
         false, 
         `rgba(${this.randomIntFromInterval(230, 250)}, ${this.randomIntFromInterval(230, 250)}, ${this.randomIntFromInterval(230, 250)}, 0.8)`, 
         'grey');
-      // points.push([x, y]);
     }
     
   }
@@ -245,7 +221,7 @@ export class BackgroundImageComponent implements AfterViewInit {
     context.scale(rx, ry);
     context.arc(1, 1, 1, half ? Math.PI : 0, 2 * Math.PI, false);
 
-    context.restore(); // restore to original state
+    context.restore(); 
     if (fill) {
       context.fillStyle = fill;
       context.fill();
@@ -265,7 +241,7 @@ export class BackgroundImageComponent implements AfterViewInit {
     // half ? Math.PI : 0, 2 * Math.PI
     context.arc(1, 1, 1, startPoint, endPoint, false);
 
-    context.restore(); // restore to original state
+    context.restore(); 
   
     context.strokeStyle = stroke ?? 'black';
     context.lineWidth = lineWidth ?? 0.75;
@@ -275,14 +251,10 @@ export class BackgroundImageComponent implements AfterViewInit {
 
   ellipseWithinPath(context: any, cx: number, cy: number, rx: number, ry: number, half=false){
     context.save(); // save state
-    // context.beginPath();
-
     context.translate(cx-rx, cy-ry);
     context.scale(rx, ry);
     context.arc(1, 1, 1, half ? Math.PI : 0, 2 * Math.PI, false);
-
-    context.restore(); // restore to original state
-    // context.stroke();
+    context.restore(); 
   }
 
   drawFilledMushroom(mushroom: Mushroom) {
@@ -307,9 +279,6 @@ export class BackgroundImageComponent implements AfterViewInit {
         ${capColorNumbers[1] + 20}, 
         ${capColorNumbers[2] + 20})`;
       if (this.context) {
-        // stalk center
-        // this.drawCurvedLine(this.context, start, end, curve);
-  
         this.context.beginPath();
 
         // stalk left
@@ -350,28 +319,6 @@ export class BackgroundImageComponent implements AfterViewInit {
           [mushroom.stalkEnd[0] - mushroom.capBase.radius, mushroom.stalkEnd[1]],
           [mushroom.stalkEnd[0], mushroom.stalkEnd[1] - capBase.ry]
         );
-  
-        
-  
-        // // stalk left
-        // this.drawCurvedLineWithinPath(
-        //   this.context, 
-  
-        //   [mushroom.stalkEnd[0] - mushroom.capBase.radius, mushroom.stalkEnd[1]],
-        //   [mushroom.root[0] - mushroom.stalkBaseRadius, mushroom.root[1]],
-        //   curve
-        // );
-  
-        
-  
-        // cap base
-        // this.ellipseWithinPath(this.context, 
-        //   capBase.cx,
-        //   capBase.cy,
-        //   capBase.rx,
-        //   capBase.ry, // TODO: calculate this,
-        //   true
-        // )
         
         //stemGreen
         const stemGrad = this.context.createLinearGradient(capBase.cy, capBase.cy, capBase.cy, mushroom.root[1]);
@@ -391,30 +338,12 @@ export class BackgroundImageComponent implements AfterViewInit {
         this.context.lineWidth = 0.9;
         this.context.stroke();
   
-        
-  
         const capCircle = {
           cx: mushroom.capCircle.center[0],
           cy: mushroom.capCircle.center[1],
           rx: mushroom.capCircle.radius,
           ry: 5
         };
-  
-  
-        // const capBase = {
-        //   cx: mushroom.capBase.center[0],
-        //   cy: mushroom.capBase.center[1],
-        //   rx: mushroom.capBase.radius,
-        //   ry: 5,
-        // }
-  
-        // cap base
-        // this.ellipse(this.context, 
-        //   capBase.cx,
-        //   capBase.cy,
-        //   capBase.rx,
-        //   capBase.ry // TODO: calculate this
-        // )
 
         // cap outline
         this.ellipse(this.context, 
@@ -440,17 +369,6 @@ export class BackgroundImageComponent implements AfterViewInit {
           null
         )
 
-        // // cap top dots
-        // this.dotsInAnEllipse(
-        //   this.context,
-        //   this.randomIntFromInterval(0, 15),
-        //   mushroom.capCircle.center[0],
-        //   mushroom.capCircle.center[1],
-        //   mushroom.capCircle.radius,
-        //   mushroom.capTop[1] - mushroom.capCircle.center[1],
-        //   true
-        // )
-        
         const capCircleGrad = this.context.createRadialGradient(
           capCircle.cx,
           capCircle.cy + 15,
@@ -476,9 +394,6 @@ export class BackgroundImageComponent implements AfterViewInit {
           null
         )
   
-        // this.context.fill();
-        // this.context.fillStyle = "blue";
-  
         // TEST A GILL
         this.drawGillBackground(
           this.context,
@@ -497,19 +412,6 @@ export class BackgroundImageComponent implements AfterViewInit {
           stemColorTrans,
           gillColor,
         )
-
-        // const capLip = this.context.createRadialGradient(
-        //   capCircle.cx,
-        //   capCircle.cy,
-        //   capCircle.ry,
-        //   capCircle.cx,
-        //   capCircle.cy,
-        //   capCircle.rx,
-        // );
-        // capLip.addColorStop(0, capColor);
-        // capLip.addColorStop(0.35, capColor);
-        // capLip.addColorStop(0.55, capColor);
-        // capLip.addColorStop(1, capColor);
 
         // make a cap lip
         this.ellipsePartialStroke(this.context, 
@@ -537,15 +439,6 @@ export class BackgroundImageComponent implements AfterViewInit {
           capCircle.rx,
           capCircle.ry,
         )
-  
-        // // stalk base
-        // this.ellipse(this.context, 
-        //   mushroom.root[0],
-        //   mushroom.root[1],
-        //   mushroom.stalkBaseRadius,
-        //   -5,
-        //   true
-        // )
       }
       
     }
@@ -558,10 +451,8 @@ export class BackgroundImageComponent implements AfterViewInit {
   }
 
   drawCurvedLineWithinPath(context: any, start: number[], end: number[], curve: number[]) {
-    // context.beginPath();
     context.lineTo(start[0], start[1]);
     context.quadraticCurveTo(curve[0], curve[1], end[0], end[1]);
-    // context.stroke();
   }
 
   /**
@@ -579,12 +470,9 @@ export class BackgroundImageComponent implements AfterViewInit {
     fillStart: string,
     fillStop: string
   ) {
-    //[0, 45, 90, 135, 180, 225, 250, 270, 290, 315]
     const degrees: number[] = [0, 45, 135, 180, 225, 250, 270, 290, 315];
     for (let i=0; i < 10; i++) {
-      // degrees.push(i*45)
     }
-    // TODO: randomize these
     for (const degree of degrees) {
       context.save();
       const angle = degree * (Math.PI/180);
@@ -600,8 +488,7 @@ export class BackgroundImageComponent implements AfterViewInit {
         [end.cx + endPoint[0], end.cy + endPoint[1]],
         [start.cx + point[0] * 2, curveCenterY],
       )
-      context.restore(); // restore to original state
-    // context.fill();
+      context.restore(); 
     }
   }
 
@@ -664,11 +551,8 @@ export class BackgroundImageComponent implements AfterViewInit {
         [start.cx, start.cy],
       )
       context.fillStyle = grad;
-      // context.strokeStype = 'orange';
       context.fill();
-      // context.stroke();
-      context.restore(); // restore to original state
-    // context.fill();
+      context.restore();
     
     // }
   }
