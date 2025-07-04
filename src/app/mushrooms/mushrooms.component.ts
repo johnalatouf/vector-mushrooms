@@ -2,11 +2,11 @@ import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@
 import { Mushroom } from '../models/mushroom.model';
 
 @Component({
-  selector: 'app-background-image',
+  selector: 'app-mushrooms',
   standalone: false,
   // imports: [],
-  templateUrl: './background-image.component.html',
-  styleUrl: './background-image.component.scss'
+  templateUrl: './mushrooms.component.html',
+  styleUrl: './mushrooms.component.scss'
 })
 export class BackgroundImageComponent implements AfterViewInit {
   // its important myCanvas matches the variable name in the template

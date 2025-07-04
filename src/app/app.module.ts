@@ -4,7 +4,7 @@ import { AppComponent }  from './app.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-import { BackgroundImageComponent } from './background-image/background-image.component';
+import { BackgroundImageComponent } from './mushrooms/mushrooms.component';
 
 @NgModule({
   imports:      [ BrowserModule, MatCardModule, MatButtonModule, RouterOutlet ],

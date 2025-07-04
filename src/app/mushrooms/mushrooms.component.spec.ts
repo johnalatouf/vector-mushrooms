@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BackgroundImageComponent } from './background-image.component';
+import { BackgroundImageComponent } from './mushrooms.component';
 
 describe('BackgroundImageComponent', () => {
   let component: BackgroundImageComponent;
