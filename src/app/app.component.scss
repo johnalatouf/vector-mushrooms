@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+@use '../custom-theme.scss' as custom-theme;
+
+.special-card {
+  background-color: mat.get-color-from-palette(custom-theme.$app-primary, 500);
+  color: mat.get-color-from-palette(custom-theme.$app-accent, A200);
+}
+
+::ng-deep body {
+  padding: 0;
+  margin: 0;
+}
